@@ -1,4 +1,4 @@
-package com.meritamerica.assignment5.assignment5;
+package com.meritamerica.assignment5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
