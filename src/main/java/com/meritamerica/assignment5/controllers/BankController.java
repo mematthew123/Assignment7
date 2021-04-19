@@ -19,9 +19,17 @@ import com.meritamerica.assignment5.Exceptions.NoSuchAccountException;
 import com.meritamerica.assignment5.models.AccountHolder;
 import com.meritamerica.assignment5.models.CDOffering;
 
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+
 @RestController
 public class BankController {
-	
+	 Logger logs = LoggerFactory.getLogger(BankController.class);
+
 	@Autowired
 	private MeritBank meritBank;
 	
@@ -35,6 +43,7 @@ public class BankController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public CDOffering addCDOffering(@RequestBody CDOffering cdOffering) throws InterestRateNotInRangeException{
 		if(cdOffering.getInterestRate()<=0 || cdOffering.getInterestRate()>=1) {
+			logs.warn("No offering exists");
 			throw new InterestRateNotInRangeException("Interest rate mush be between 0 and 1");
 		}
 		meritBank.addCDOffering(cdOffering);
@@ -51,6 +60,7 @@ public class BankController {
 	public AccountHolder getAccountHolder(@PathVariable String accountHolderID) throws NoSuchAccountException {
 		int accHolderID = Integer.parseInt(accountHolderID);
 		if(accHolderID>meritBank.getAccountHolders().size()) {
+			logs.warn("No account exists");
 			throw new NoSuchAccountException("No such account");
 		}
 		AccountHolder accountHold = meritBank.getAccountHolder(accHolderID);
