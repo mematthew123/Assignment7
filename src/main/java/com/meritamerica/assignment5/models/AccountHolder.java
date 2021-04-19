@@ -1,8 +1,11 @@
 package com.meritamerica.assignment5.models;
 
+import javax.validation.constraints.NotBlank;
+
 import com.meritamerica.assignment5.Exceptions.ExceedsCombinedBalanceLimitException;
 import com.meritamerica.assignment5.Exceptions.ExceedsFraudSuspicionLimitException;
 import com.sun.el.parser.ParseException;
+
 
 public class AccountHolder{
 	// Constants
@@ -10,21 +13,24 @@ public class AccountHolder{
 
 	// Instance variables
 	private int id;
+	@NotBlank(message = "First Name cannot be blank")
 	private String firstName;
 	private String middleName;
+	@NotBlank(message = "Last Name cannot be blank")
 	private String lastName;
+	@NotBlank(message = "SSN cannot be blank")
 	private String ssn;
 	private CheckingAccount[] checkingAccounts;
 	private SavingsAccount[] saveAccounts;
 	private CDAccount[] cdAccounts;
 
 	private static long nextAccountNumber;
-	private static int idGen = 0;
+	private static int idGen = 1;
 	
 
 	// Constructor
 	public AccountHolder(String firstName, String middleName, String lastName, String ssn) {
-		this.setId(1);
+		this.setId();
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -225,7 +231,7 @@ public class AccountHolder{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId() {
 		this.id = idGen++;
 	}
 
