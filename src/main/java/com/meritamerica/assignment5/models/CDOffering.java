@@ -12,7 +12,7 @@ public class CDOffering {
 	private int term;
 
 	CDOffering(double interestRate, int term) {
-		id = nextID++;
+		this.setId();
 		this.interestRate = interestRate;
 		this.term = term;
 	}
@@ -24,7 +24,6 @@ public class CDOffering {
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 
 	public double getInterestRate() {
@@ -47,5 +46,9 @@ public class CDOffering {
 	public String writeToString() {
 		String newString = this.interestRate + "," + this.term;
 		return newString;
+	}
+	
+	public void setId() {
+		this.id = nextID++;
 	}
 }

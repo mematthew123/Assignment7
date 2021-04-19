@@ -1,0 +1,33 @@
+Create CDOffering
+==========================
+{
+    "interestRate": 0.025,
+    "term": 5
+}
+
+{
+    "interestRate": 0.05,
+    "term": 2
+}
+
+Create Account Holder Test
+==========================
+{
+    "firstName": "Sadiq",
+    "middleName": "J",
+    "lastName": "Manji",
+    "ssn": "123456789"
+}
+{
+    "firstName": "John",
+    "middleName": "J",
+    "lastName": "Doe",
+    "ssn": "999-222-3333"
+}
+
+{
+    "firstName": "Jane",
+    "middleName": "J",
+    "lastName": "Doe",
+    "ssn": "999-222-0000"
+}
