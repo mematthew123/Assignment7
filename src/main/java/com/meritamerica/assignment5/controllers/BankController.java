@@ -26,22 +26,11 @@ import com.meritamerica.assignment5.models.CDOffering;
 import com.meritamerica.assignment5.models.CheckingAccount;
 
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
-
 @RestController
 public class BankController {
-<<<<<<< HEAD
+
 	Logger logs = LoggerFactory.getLogger(BankController.class);
 	
-	
-=======
-	 Logger logs = LoggerFactory.getLogger(BankController.class);
-
->>>>>>> 07a9cd71acf77c62cf85fdbc9e2fab59f8f93806
 	@Autowired
 	private MeritBank meritBank;
 	
