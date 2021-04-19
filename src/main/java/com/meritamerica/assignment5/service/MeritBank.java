@@ -3,14 +3,18 @@ package com.meritamerica.assignment5.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
+import com.meritamerica.assignment5.Exceptions.ExceedsCombinedBalanceLimitException;
 import com.meritamerica.assignment5.models.AccountHolder;
 import com.meritamerica.assignment5.models.CDOffering;
+import com.meritamerica.assignment5.models.CheckingAccount;
 
 @Service
 public class MeritBank {
-	private List<AccountHolder> accountHolders;
+	private static List<AccountHolder> accountHolders;
 	private List <CDOffering> cdOfferings;
 	
 	public MeritBank() {
@@ -22,13 +26,24 @@ public class MeritBank {
 	//Add Account Holder
 	public AccountHolder getAccountHolder(int id) {
 		AccountHolder accountHolder = null;
-		for(AccountHolder ah: accountHolders) {
-			if(ah.getId()==id) {
-				accountHolder = ah;
+		for(AccountHolder accholder: accountHolders) {
+			if(accholder.getId()==id) {
+				accountHolder = accholder;
 			}
 		}
 		return accountHolder;
 	}
+	
+	//Get CDOffering
+		public CDOffering getCDOffering(int id) {
+			CDOffering cdOffering = null;
+			for(CDOffering cdoffering: cdOfferings) {
+				if(cdoffering.getId()==id) {
+					cdOffering = cdoffering;
+				}
+			}
+			return cdOffering;
+		}
 	
 	public List<AccountHolder> getAccountHolders() {
 		return accountHolders;
@@ -65,4 +80,16 @@ public class MeritBank {
 		}
 		return total;
 	}
+	
+	//Add checking account
+	
+	public CheckingAccount addCheckingAccount(int id, CheckingAccount checkingAccount) throws ExceedsCombinedBalanceLimitException {
+		for(AccountHolder ch: accountHolders) {
+			if(ch.getId()==id) {
+				ch.addCheckingAccount(checkingAccount);
+			}
+		}
+		return checkingAccount;
+	}
+
 }

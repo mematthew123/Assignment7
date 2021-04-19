@@ -1,22 +1,20 @@
 package com.meritamerica.assignment5.models;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
-import com.sun.el.parser.ParseException;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class BankAccount {
 	public double accountBalance;
 	public long accountNumber;
 	public double interestRate;
-	public java.util.Date startDate;
+	public Date startDate;
 
-	static private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
+	public BankAccount() {}
 	// Constructors
 	public BankAccount(double balance) {
 		this.accountBalance = balance;
 		this.accountNumber = AccountHolder.getNewAccountNumber();
+		//this.startDate = LocalDateTime.now();
 	}
 
 	public BankAccount(double balance, double interestRate) {
@@ -31,14 +29,14 @@ public class BankAccount {
 		this.interestRate = interestRate;
 	}
 
-	public BankAccount(long accountNumber, double balance, double interestRate, java.util.Date accountOpenedOn) {
+	public BankAccount(long accountNumber, double balance, double interestRate, Date accountOpenedOn) {
 		this.accountNumber = accountNumber;
 		this.accountBalance = balance;
 		this.interestRate = interestRate;
 		this.startDate = accountOpenedOn;
 	}
 
-	public BankAccount(long accountNumber, double balance, double interestRate, java.util.Date accountOpenedOn,
+	public BankAccount(long accountNumber, double balance, double interestRate, Date accountOpenedOn,
 			int term) {
 		this.accountNumber = accountNumber;
 		this.accountBalance = balance;
@@ -54,6 +52,30 @@ public class BankAccount {
 
 	public double getBalance() {
 		return this.accountBalance;
+	}
+
+	public double getAccountBalance() {
+		return accountBalance;
+	}
+
+	public void setAccountBalance(double accountBalance) {
+		this.accountBalance = accountBalance;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
 	}
 
 	// Account methods
@@ -76,7 +98,7 @@ public class BankAccount {
 	}
 
 	// Get opening date
-	java.util.Date getOpenedOn() {
+	Date getOpenedOn() {
 		return startDate;
 	}
 
@@ -93,15 +115,6 @@ public class BankAccount {
 		int truncatedInt = (int) toTruncate;
 		double truncatedDouble = (double) truncatedInt / 100;
 		return truncatedDouble;
-	}
-
-	public static BankAccount readFromString(String accountData) throws ParseException, java.text.ParseException {
-		String[] accountInfo = accountData.split(",");
-		long accountNumber = Long.valueOf(accountInfo[0]);
-		double accountBalance = Double.valueOf(accountInfo[1]);
-		double interestRate = Double.valueOf(accountInfo[2]);
-		java.util.Date startDate = formatter.parse(accountInfo[3]);
-		return null;
 	}
 
 	public String toString() {

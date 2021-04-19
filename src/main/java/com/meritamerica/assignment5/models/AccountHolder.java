@@ -1,15 +1,18 @@
 package com.meritamerica.assignment5.models;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import javax.validation.constraints.NotBlank;
 
 import com.meritamerica.assignment5.Exceptions.ExceedsCombinedBalanceLimitException;
-import com.meritamerica.assignment5.Exceptions.ExceedsFraudSuspicionLimitException;
-import com.sun.el.parser.ParseException;
+
 
 
 public class AccountHolder{
 	// Constants
 	public static final long BALANCE_LIMIT = 250000;
+
 
 	// Instance variables
 	private int id;
@@ -20,9 +23,9 @@ public class AccountHolder{
 	private String lastName;
 	@NotBlank(message = "SSN cannot be blank")
 	private String ssn;
-	private CheckingAccount[] checkingAccounts;
-	private SavingsAccount[] saveAccounts;
-	private CDAccount[] cdAccounts;
+	private ArrayList <CheckingAccount> checkingAccounts;
+	private ArrayList <SavingsAccount> saveAccounts;
+	private ArrayList <CDAccount> cdAccounts;
 
 	private static long nextAccountNumber;
 	private static int idGen = 1;
@@ -35,10 +38,10 @@ public class AccountHolder{
 		this.middleName = middleName;
 		this.lastName = lastName;
 		this.ssn = ssn;
-		checkingAccounts = new CheckingAccount[0];
-		saveAccounts = new SavingsAccount[0];
-		cdAccounts = new CDAccount[0];
-		nextAccountNumber = 1000;
+		checkingAccounts = new ArrayList<CheckingAccount>();
+		saveAccounts = new ArrayList<SavingsAccount>();
+		cdAccounts = new ArrayList<CDAccount>();
+		nextAccountNumber = 1;
 	}
 
 	// Getters and Setters
@@ -74,83 +77,83 @@ public class AccountHolder{
 		this.ssn = ssn;
 	}
 
-	public CheckingAccount[] getCheckingAccounts() {
+	public ArrayList<CheckingAccount> getCheckingAccounts() {
 		return this.checkingAccounts;
 	}
 
-	public void setCheckingAccounts(CheckingAccount[] checkAccounts) {
+	public void setCheckingAccounts(ArrayList<CheckingAccount> checkAccounts) {
 		this.checkingAccounts = checkAccounts;
 	}
 
 	public int getNumberOfCheckingAccounts() {
-		return this.checkingAccounts.length;
+		return this.checkingAccounts.size();
 	}
 
 	public double getCheckingBalance() {
 		double total = 0;
-		for (int i = 0; i < checkingAccounts.length; i++) {
-			total += checkingAccounts[i].getBalance();
+		for (int i = 0; i < checkingAccounts.size(); i++) {
+			total += checkingAccounts.get(i).getBalance();
 		}
 		return total;
 	}
 
-	public SavingsAccount[] getSavingsAccounts() {
+	public ArrayList<SavingsAccount> getSavingsAccounts() {
 		return this.saveAccounts;
 	}
 
 	public int getNumberOfSavingsAccounts() {
-		return this.saveAccounts.length;
+		return this.saveAccounts.size();
 	}
 
 	public double getSavingsBalance() {
 		double total = 0;
 
-		for (int i = 0; i < saveAccounts.length; i++) {
-			total += saveAccounts[i].getBalance();
+		for (int i = 0; i < saveAccounts.size(); i++) {
+			total += saveAccounts.get(i).getBalance();
 		}
 
 		return total;
 	}
 
-	public void setSavingsAccounts(SavingsAccount[] saveAccounts) {
+	public void setSavingsAccounts(ArrayList<SavingsAccount> saveAccounts) {
 		this.saveAccounts = saveAccounts;
 	}
 
-	public CDAccount[] getCdAccounts() {
+	public ArrayList<CDAccount> getCdAccounts() {
 		return this.cdAccounts;
 	}
 
 	public int getNumberOfCDAccounts() {
-		return this.cdAccounts.length;
+		return this.cdAccounts.size();
 	}
 
 	public double getCDBalance() {
 		double total = 0;
 
-		for (int i = 0; i < cdAccounts.length; i++) {
-			total += cdAccounts[i].getBalance();
+		for (int i = 0; i < cdAccounts.size(); i++) {
+			total += cdAccounts.get(i).getBalance();
 		}
 
 		return total;
 	}
 
-	public void setCdAccounts(CDAccount[] cdAccounts) {
+	public void setCdAccounts(ArrayList<CDAccount> cdAccounts) {
 		this.cdAccounts = cdAccounts;
 	}
 
 	public double getCombinedBalance() {
 		double total = 0;
 
-		for (int i = 0; i < checkingAccounts.length; i++) {
-			total += checkingAccounts[i].getBalance();
+		for (int i = 0; i < checkingAccounts.size(); i++) {
+			total += checkingAccounts.get(i).getBalance();
 		}
 
-		for (int i = 0; i < saveAccounts.length; i++) {
-			total += saveAccounts[i].getBalance();
+		for (int i = 0; i < saveAccounts.size(); i++) {
+			total += saveAccounts.get(i).getBalance();
 		}
 
-		for (int i = 0; i < cdAccounts.length; i++) {
-			total += cdAccounts[i].getBalance();
+		for (int i = 0; i < cdAccounts.size(); i++) {
+			total += cdAccounts.get(i).getBalance();
 		}
 
 		return total;
@@ -158,7 +161,7 @@ public class AccountHolder{
 
 
 
-	public CheckingAccount addCheckingAccount(CheckingAccount checkingAccount)
+	public void addCheckingAccount(CheckingAccount checkingAccount)
 			throws ExceedsCombinedBalanceLimitException {
 		if (getCombinedBalance() + checkingAccount.getBalance() >= BALANCE_LIMIT) {
 
@@ -166,16 +169,7 @@ public class AccountHolder{
 					"You have reached the maximum total balance across all accounts. Cannot create another.");
 
 		} else {
-			CheckingAccount[] newCheckingAccounts = new CheckingAccount[checkingAccounts.length + 1];
-			int i;
-			for (i = 0; i < checkingAccounts.length; i++) {
-				newCheckingAccounts[i] = checkingAccounts[i];
-			}
-
-			newCheckingAccounts[i] = checkingAccount;
-			checkingAccounts = newCheckingAccounts;
-
-			return checkingAccount;
+			checkingAccounts.add(checkingAccount);
 		}
 	}
 
@@ -199,31 +193,18 @@ public class AccountHolder{
 					"You have reached the maximum total balance across all accounts. Cannot create another.");
 
 		} else {
-			SavingsAccount[] newArray = new SavingsAccount[saveAccounts.length + 1];
-			int i;
-			for (i = 0; i < saveAccounts.length; i++) {
-				newArray[i] = saveAccounts[i];
-			}
-			newArray[i] = savingsAccount;
-			saveAccounts = newArray;
+			saveAccounts.add(savingsAccount);
 			return savingsAccount;
 		}
 	}
 
 	// Add CD Accounts
 	public CDAccount addCDAccount(CDAccount cdAccount) {
-		CDAccount[] tempArray = new CDAccount[cdAccounts.length + 1];
-		int i;
-		for (i = 0; i < cdAccounts.length; i++) {
-			tempArray[i] = cdAccounts[i];
-		}
-		tempArray[i] = cdAccount;
-		cdAccounts = tempArray;
+		cdAccounts.add(cdAccount);
 		return cdAccount;
 	}
 
 	public static long getNewAccountNumber() {
-		// TODO Auto-generated method stub
 		return nextAccountNumber++;
 	}
 

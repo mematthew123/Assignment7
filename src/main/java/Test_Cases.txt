@@ -1,5 +1,10 @@
+GET
+//url
+
 Create CDOffering
 ==========================
+//url
+POST
 {
     "interestRate": 0.025,
     "term": 5
@@ -9,6 +14,12 @@ Create CDOffering
     "interestRate": 0.05,
     "term": 2
 }
+
+
+{
+"balance": 1000.0
+}
+
 
 Create Account Holder Test
 ==========================
