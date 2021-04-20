@@ -24,6 +24,7 @@ import com.meritamerica.assignment5.models.AccountHolder;
 import com.meritamerica.assignment5.models.CDAccount;
 import com.meritamerica.assignment5.models.CDOffering;
 import com.meritamerica.assignment5.models.CheckingAccount;
+import com.meritamerica.assignment5.models.SavingsAccount;
 
 
 @RestController
@@ -76,32 +77,54 @@ public class BankController {
 		return accountHolder;
 	}
 	
-	//Get checking account
-	@GetMapping("/accountHolders/{id}/checkingAccounts")
-	public List<CheckingAccount> getCheckingAccounts(@PathVariable String id) {
-		return meritBank.getAccountHolder(Integer.parseInt(id)).getCheckingAccounts();
-	}
-	
 	//Post checking account
 	@PostMapping("/accountHolders/{id}/checkingAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CheckingAccount addCheckingAccount(@PathVariable int id, @RequestBody CheckingAccount checkingAccount) throws NumberFormatException, ExceedsCombinedBalanceLimitException {
+	public CheckingAccount addCheckingAccount(@PathVariable int id, @RequestBody CheckingAccount checkingAccount) throws ExceedsCombinedBalanceLimitException {
 		AccountHolder accountHolder = meritBank.getAccountHolder(id);
 		CheckingAccount cha = new CheckingAccount(checkingAccount.getBalance());
 		accountHolder.addCheckingAccount(cha);
 		return cha;
 	}
 	
-	@PostMapping("/AccountHolders/{id}/CDAccounts")
+	
+	//Get checking account
+	@GetMapping("/accountHolders/{id}/checkingAccounts")
+	public List<CheckingAccount> getCheckingAccounts(@PathVariable String id) {
+		return meritBank.getAccountHolder(Integer.parseInt(id)).getCheckingAccounts();
+	}
+	
+	//Add savings account	
+	@PostMapping("/accountHolders/{id}/savingsAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CDAccount addCDAccounts(@PathVariable int id, @RequestBody CDAccount cdAccount) throws NumberFormatException, ExceedsCombinedBalanceLimitException {
+	public SavingsAccount addSavingsAccounts(@PathVariable int id, @RequestBody SavingsAccount savingsAccount) throws ExceedsCombinedBalanceLimitException {
+		AccountHolder accountHolder = meritBank.getAccountHolder(id);
+		SavingsAccount sva = new SavingsAccount(savingsAccount.getBalance());
+		accountHolder.addSavingsAccount(sva);
+		return sva;
+	}
+	
+	//Get checking account
+	@GetMapping("/accountHolders/{id}/savingsAccounts")
+	public List<SavingsAccount> getSavingsAccounts(@PathVariable String id) {
+		return meritBank.getAccountHolder(Integer.parseInt(id)).getSavingsAccounts();
+	}
+	
+	//Add CD account
+	@PostMapping("/accountHolders/{id}/CDAccounts")
+	@ResponseStatus(HttpStatus.CREATED)
+	public CDAccount addCDAccounts(@PathVariable int id, @RequestBody CDAccount cdAccount) throws ExceedsCombinedBalanceLimitException {
 		AccountHolder accountHolder = meritBank.getAccountHolder(id);
 		CDOffering cdo = meritBank.getCDOffering(cdAccount.getOffering().getId());
 		CDAccount cdAcc = new CDAccount(cdo, cdAccount.getAccountBalance());
 		accountHolder.addCDAccount(cdAcc);
-//		CheckingAccount cha = new CheckingAccount(cdAccount.getBalance());
-//		accountHolder.addCheckingAccount(cha);
 		return cdAcc;
+	}
+	
+	//Get CD Accounts
+	@GetMapping("/accountHolders/{id}/cdAccounts")
+	public List<CDAccount> getCDAccounts(@PathVariable String id) {
+		return meritBank.getAccountHolder(Integer.parseInt(id)).getCdAccounts();
 	}
 	
 	
