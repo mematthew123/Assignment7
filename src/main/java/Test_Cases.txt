@@ -1,59 +1,56 @@
 -------Test cases---------
 ==========================
-Method: POST 
-URL: "/CDOfferings"
+POST 
+"/CDOfferings"
 {
 	"interestRate": 0.025,
 	"term": 5
 }
-
 ==========================
-Method: GET
+GET
 URL: "/CDOfferings"
-
 ==========================
-Create CDOffering
-
-URL: "/accountHolders"
-Method: POST
+POST
+"/accountHolders"
 {
 	"firstName": "Sadiq",
 	"middleName": "",
 	"lastName": "Manji",
 	"ssn": "123456789"
-	
 }
-
 ==========================
-Create Account Holder Test
-URL: "/accountHolders"
-Method: POST
-
+GET
+"/accountHolders"
+==========================
+GET
+"/accountHolders/{ID}"
+==========================
+Post 
+"/accountHolders/{id}/checkingAccounts"
 {
-    "firstName": "Sadiq",
-    "middleName": "J",
-    "lastName": "Manji",
-    "ssn": "123456789"
+	"balance": 1000
 }
-
+==========================
+Get
+"/accountHolders/{id}/checkingAccounts"
+==========================
+Post 
+"/accountHolders/{id}/savingsAccounts"
 {
-    "firstName": "John",
-    "middleName": "J",
-    "lastName": "Doe",
-    "ssn": "999-222-3333"
+	"balance": 1000
 }
-
 ==========================
-Get Account Holder by id
-URL: "/accountHolders/{id}"
-Method: POST
-
+Get
+"/accountHolders/{id}/savingsAccounts"
 ==========================
-Get checking account
-URL: "/accountHolders/{id}/checkingAccounts"
-Method: Get
-
+Post 
+"/accountHolders/{id}/cdAccounts"
+{
+	"balance": 10000,
+	"cdOffering": {
+		“id”: 1
+	}
+}
 ==========================
-Post checking account
-URL: "/accountHolders/{id}/checkingAccounts"
-Method: Post
+Get
+"/accountHolders/{id}/cdAccounts"

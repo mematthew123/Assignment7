@@ -1,126 +1,106 @@
 package com.meritamerica.assignment5.models;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class BankAccount {
-	public double accountBalance;
-	public long accountNumber;
-	public double interestRate;
-	public Date startDate;
+//	Account Number Generator
+	private static long nextAccountNumber = 1;
 
-	public BankAccount() {}
-	// Constructors
+//	Instance Variables	
+	private long accountNumber;
+	private double balance;
+	private double interestRate;
+	private LocalDate openingDate;
+
+//	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-YYYY");
+//	Default Constructor
+	public BankAccount() {
+	}
+
+//	Parameterized Constructor
 	public BankAccount(double balance) {
-		this.accountBalance = balance;
-		this.accountNumber = AccountHolder.getNewAccountNumber();
-		//this.startDate = LocalDateTime.now();
+		this.accountNumber = nextAccountNumber++;
+		this.balance = balance;
+		this.interestRate = 0.01; // Interest Rate = 1%
+		this.openingDate = LocalDate.now();
 	}
 
-	public BankAccount(double balance, double interestRate) {
-		this.accountBalance = balance;
-		this.interestRate = interestRate;
-		this.accountNumber = AccountHolder.getNewAccountNumber();
-	}
-
-	public BankAccount(long accountNumber, double balance, double interestRate) {
-		this.accountNumber = accountNumber;
-		this.accountBalance = balance;
-		this.interestRate = interestRate;
-	}
-
-	public BankAccount(long accountNumber, double balance, double interestRate, Date accountOpenedOn) {
-		this.accountNumber = accountNumber;
-		this.accountBalance = balance;
-		this.interestRate = interestRate;
-		this.startDate = accountOpenedOn;
-	}
-
-	public BankAccount(long accountNumber, double balance, double interestRate, Date accountOpenedOn,
-			int term) {
-		this.accountNumber = accountNumber;
-		this.accountBalance = balance;
-		this.interestRate = interestRate;
-		this.startDate = accountOpenedOn;
-
-	}
-
-	// Getters
+//	Getters and Setters
 	public long getAccountNumber() {
-		return this.accountNumber;
-	}
-
-	public double getBalance() {
-		return this.accountBalance;
-	}
-
-	public double getAccountBalance() {
-		return accountBalance;
-	}
-
-	public void setAccountBalance(double accountBalance) {
-		this.accountBalance = accountBalance;
-	}
-
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+		return accountNumber;
 	}
 
 	public void setAccountNumber(long accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public double getInterestRate() {
+		return interestRate;
+	}
+
 	public void setInterestRate(double interestRate) {
 		this.interestRate = interestRate;
 	}
 
-	// Account methods
+	public LocalDate getOpeningDate() {
+		return openingDate;
+	}
+
+	@Override
+	public String toString() {
+		return "BankAccount [accountNumber=" + accountNumber + ", balance=" + balance + ", interestRate=" + interestRate
+				+ ", openingDate=" + openingDate + "]";
+	}
+
+// Account methods
+	/**
+	 * This method withdraws from the account if the withdraw amount is less than
+	 * balance
+	 * 
+	 * @param amount
+	 * @return boolean
+	 */
 	public boolean withdraw(double amount) {
-		if (amount <= this.accountBalance) {
-			this.accountBalance -= amount;
+		if (amount <= this.balance) {
+			this.balance -= amount;
 			return true;
 		} else {
 			return false;
 		}
 	}
 
+// Deposit Method
+	/**
+	 * This method deposits in the account if the deposit amount is greater than
+	 * zero
+	 * 
+	 * @param amount
+	 * @return boolean
+	 */
 	public boolean deposit(double amount) {
 		if (amount <= 0) {
 			return false;
 		} else {
-			this.accountBalance += amount;
+			this.balance += amount;
 			return true;
 		}
 	}
 
-	// Get opening date
-	Date getOpenedOn() {
-		return startDate;
-	}
-
+	/**
+	 * This method returns future value of the account
+	 * 
+	 * @param years
+	 * @return double
+	 */
 	public double futureValue(int years) {
 		return getBalance() * (Math.pow(1 + getInterestRate(), years));
 	}
-
-	public double getInterestRate() {
-		return this.interestRate;
-	}
-
-	public double truncateValue(double toTruncate) {
-		toTruncate *= 100;
-		int truncatedInt = (int) toTruncate;
-		double truncatedDouble = (double) truncatedInt / 100;
-		return truncatedDouble;
-	}
-
-	public String toString() {
-
-		return "Account Balance: $" + getBalance() + "\n" + "Account Interest Rate: 0.0001\n"
-				+ "Account Balance in 3 years: $" + truncateValue(futureValue(3));
-	}
-
 }

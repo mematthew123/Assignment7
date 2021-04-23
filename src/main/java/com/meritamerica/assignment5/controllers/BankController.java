@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.meritamerica.assignment5.Exceptions.ExceedsCombinedBalanceLimitException;
 import com.meritamerica.assignment5.Exceptions.InterestRateNotInRangeException;
+import com.meritamerica.assignment5.Exceptions.InvalidArgumentException;
 import com.meritamerica.assignment5.Exceptions.NoSuchAccountException;
 import com.meritamerica.assignment5.models.AccountHolder;
 import com.meritamerica.assignment5.models.CDAccount;
@@ -26,106 +26,193 @@ import com.meritamerica.assignment5.models.CDOffering;
 import com.meritamerica.assignment5.models.CheckingAccount;
 import com.meritamerica.assignment5.models.SavingsAccount;
 
-
 @RestController
 public class BankController {
-
 	Logger logs = LoggerFactory.getLogger(BankController.class);
-	
+
+	// Bank Service
 	@Autowired
-	private MeritBank meritBank;
-	
-	
-	//CDOfferings
+	private MeritBank bankService;
+
+	@GetMapping("/")
+	public String home() {
+		return "Welcome to Merit Bank";
+	}
+
+	/**
+	 * Get CDOfferings
+	 * 
+	 * @return list of CDOfferings
+	 */
 	@GetMapping("/CDOfferings")
 	public List<CDOffering> getCDOfferings() {
-		return meritBank.getCDOfferings();
+		return bankService.getCDOfferings();
 	}
-	
-	@PostMapping("/CDOfferings")
-	@ResponseStatus(HttpStatus.CREATED)
-	public CDOffering addCDOffering(@RequestBody CDOffering cdOffering) throws InterestRateNotInRangeException{
-		if(cdOffering.getInterestRate()<=0 || cdOffering.getInterestRate()>=1) {
-			logs.warn("No offering exists");
-			throw new InterestRateNotInRangeException("Interest rate mush be between 0 and 1");
+
+	@GetMapping("/CDOfferings/{id}")
+	public CDOffering getCDOffering(@PathVariable("id") int id) throws NoSuchAccountException {
+		if (id > bankService.getCDOfferings().size()) {
+			throw new NoSuchAccountException("Account with this id does not exist");
 		}
-		meritBank.addCDOffering(cdOffering);
+		CDOffering cdOffering = null;
+		for (CDOffering cdof : bankService.getCDOfferings()) {
+			if (cdof.getId() == id) {
+				cdOffering = cdof;
+			}
+		}
 		return cdOffering;
 	}
-	
-	//Get AccountHolders
+
+	/**
+	 * Post CDOffering Adds CDOffering to the list of CDOfferings
+	 * 
+	 * @return CDOffering
+	 */
+	@PostMapping("/CDOfferings")
+	@ResponseStatus(HttpStatus.CREATED)
+	public CDOffering addCDOffering(@RequestBody CDOffering cdOffering) throws InvalidArgumentException {
+		if (cdOffering.getInterestRate() <= 0 || cdOffering.getInterestRate() >= 1 || cdOffering.getTerm() < 1) {
+			throw new InvalidArgumentException("Invalid Term or Interest Rate");
+		}
+		CDOffering cdof = new CDOffering(cdOffering.getInterestRate(), cdOffering.getTerm());
+		bankService.addCDOffering(cdof);
+		return cdof;
+	}
+
+	/**
+	 * Get List of Account Holders
+	 * 
+	 * @return accountHolders
+	 */
 	@GetMapping("/accountHolders")
 	public List<AccountHolder> getAccountHolders() {
-		return meritBank.getAccountHolders();
+		return bankService.getAccountHolders();
 	}
-	
+
+	/**
+	 * Get account holder by id
+	 * 
+	 * @param accountHolderID
+	 * @return accountHolderID
+	 * @throws NoSuchAccountException
+	 */
 	@GetMapping("/accountHolders/{accountHolderID}")
-	public AccountHolder getAccountHolder(@PathVariable String accountHolderID) throws NoSuchAccountException {
-		int accHolderID = Integer.parseInt(accountHolderID);
-		if(accHolderID>meritBank.getAccountHolders().size()) {
+	public AccountHolder getAccountHolder(@PathVariable int accountHolderID) throws NoSuchAccountException {
+		if (accountHolderID > bankService.getAccountHolders().size()) {
 			logs.warn("No account exists");
 			throw new NoSuchAccountException("No such account");
 		}
-		AccountHolder accountHold = meritBank.getAccountHolder(accHolderID);
+		AccountHolder accountHold = bankService.getAccountHolder(accountHolderID);
 		return accountHold;
 	}
-	
+
+//	Add account holder
+	/**
+	 * Add account holder Method: Post
+	 * 
+	 * @param accountHolder
+	 * @return accountHolder
+	 */
 	@PostMapping("/accountHolders")
 	@ResponseStatus(HttpStatus.CREATED)
 	public AccountHolder addAccountHolder(@RequestBody @Valid AccountHolder accountHolder) {
-		meritBank.addAccountHolder(accountHolder);
+		bankService.addAccountHolder(accountHolder);
 		return accountHolder;
 	}
-	
-	//Post checking account
+
+	// Add checking account
+	/**
+	 * Creates a new checking account associated with the account holder with the
+	 * given ID and adds it to the account holder's list of checking accounts
+	 * 
+	 * @param id
+	 * @param checkingAccount
+	 * @return
+	 * @throws ExceedsCombinedBalanceLimitException
+	 */
 	@PostMapping("/accountHolders/{id}/checkingAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CheckingAccount addCheckingAccount(@PathVariable int id, @RequestBody CheckingAccount checkingAccount) throws ExceedsCombinedBalanceLimitException {
-		AccountHolder accountHolder = meritBank.getAccountHolder(id);
+	public CheckingAccount addCheckingAccount(@PathVariable int id, @RequestBody CheckingAccount checkingAccount)
+			throws ExceedsCombinedBalanceLimitException {
+		AccountHolder accountHolder = bankService.getAccountHolder(id);
 		CheckingAccount cha = new CheckingAccount(checkingAccount.getBalance());
 		accountHolder.addCheckingAccount(cha);
 		return cha;
 	}
-	
-	
-	//Get checking account
+
+	// Get checking account
+	/**
+	 * Returns all checking accounts held by the account holder with the given ID
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/accountHolders/{id}/checkingAccounts")
-	public List<CheckingAccount> getCheckingAccounts(@PathVariable String id) {
-		return meritBank.getAccountHolder(Integer.parseInt(id)).getCheckingAccounts();
+	public List<CheckingAccount> getCheckingAccounts(@PathVariable int id) {
+		return bankService.getAccountHolder(id).getCheckingAccounts();
 	}
-	
-	//Add savings account	
+
+	// Add savings account
+	/**
+	 * Creates a new savings account associated with the account holder with the
+	 * given ID
+	 * 
+	 * @param id
+	 * @param savingsAccount
+	 * @return savingsAccount
+	 * @throws ExceedsCombinedBalanceLimitException
+	 */
 	@PostMapping("/accountHolders/{id}/savingsAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SavingsAccount addSavingsAccounts(@PathVariable int id, @RequestBody SavingsAccount savingsAccount) throws ExceedsCombinedBalanceLimitException {
-		AccountHolder accountHolder = meritBank.getAccountHolder(id);
+	public SavingsAccount addSavingsAccounts(@PathVariable int id, @RequestBody SavingsAccount savingsAccount)
+			throws ExceedsCombinedBalanceLimitException {
+		AccountHolder accountHolder = bankService.getAccountHolder(id);
 		SavingsAccount sva = new SavingsAccount(savingsAccount.getBalance());
 		accountHolder.addSavingsAccount(sva);
 		return sva;
 	}
-	
-	//Get checking account
+
+	// Get checking account
+	/**
+	 * Returns all savings accounts held by the account holder with the given ID
+	 * 
+	 * @param id
+	 * @return savingsAccounts
+	 */
 	@GetMapping("/accountHolders/{id}/savingsAccounts")
-	public List<SavingsAccount> getSavingsAccounts(@PathVariable String id) {
-		return meritBank.getAccountHolder(Integer.parseInt(id)).getSavingsAccounts();
+	public List<SavingsAccount> getSavingsAccounts(@PathVariable int id) {
+		return bankService.getAccountHolder(id).getSavingsAccounts();
 	}
-	
-	//Add CD account
-	@PostMapping("/accountHolders/{id}/CDAccounts")
+
+	// Add CD account
+	/**
+	 * Creates a new CD account associated with the account holder with the given ID
+	 * 
+	 * @param id
+	 * @param cdAccount
+	 * @return cdAccount
+	 * @throws ExceedsCombinedBalanceLimitException
+	 */
+	@PostMapping("/accountHolders/{id}/cdAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CDAccount addCDAccounts(@PathVariable int id, @RequestBody CDAccount cdAccount) throws ExceedsCombinedBalanceLimitException {
-		AccountHolder accountHolder = meritBank.getAccountHolder(id);
-		CDOffering cdo = meritBank.getCDOffering(cdAccount.getOffering().getId());
-		CDAccount cdAcc = new CDAccount(cdo, cdAccount.getAccountBalance());
-		accountHolder.addCDAccount(cdAcc);
+	public CDAccount addCDAccount(@PathVariable int id, @RequestBody CDAccount cdAccount)
+			throws ExceedsCombinedBalanceLimitException {
+		AccountHolder accountHolder = bankService.getAccountHolder(id);
+		CDOffering cdo = bankService.getCDOffering(cdAccount.getCdOffering().getId());
+		CDAccount cdAcc = new CDAccount(cdAccount.getBalance(), cdo);
+		accountHolder.addCdAccount(cdAcc);
 		return cdAcc;
 	}
-	
-	//Get CD Accounts
+
+	// Get CD Accounts
+	/**
+	 * Returns all CD accounts held by the account holder with the given ID
+	 * 
+	 * @param id
+	 * @return cdAccount
+	 */
 	@GetMapping("/accountHolders/{id}/cdAccounts")
-	public List<CDAccount> getCDAccounts(@PathVariable String id) {
-		return meritBank.getAccountHolder(Integer.parseInt(id)).getCdAccounts();
+	public List<CDAccount> getCDAccounts(@PathVariable int id) {
+		return bankService.getAccountHolder(id).getCdAccounts();
 	}
-	
-	
 }
