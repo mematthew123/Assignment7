@@ -14,3 +14,42 @@
 2021-04-23 10:59:38.078  WARN 14264 --- [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
 2021-04-23 11:14:27.524  INFO 14264 --- [RMI TCP Connection(25)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 2021-04-23 11:14:27.544  INFO 14264 --- [RMI TCP Connection(25)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-04-23 20:55:05.093  WARN 6150 --- [main] o.s.boot.StartupInfoLogger               : InetAddress.getLocalHost().getHostName() took 5006 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).
+2021-04-23 20:55:10.109  INFO 6150 --- [main] c.m.assignment5.Assignment5Application   : Starting Assignment5Application using Java 1.8.0_281 on Matthews-MacBook-Air.local with PID 6150 (/Users/matthewrhoads/git/assignment6/target/classes started by matthewrhoads in /Users/matthewrhoads/git/assignment6)
+2021-04-23 20:55:10.110  INFO 6150 --- [main] c.m.assignment5.Assignment5Application   : No active profile set, falling back to default profiles: default
+2021-04-23 20:55:11.743  INFO 6150 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-04-23 20:55:11.765  INFO 6150 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-23 20:55:11.766  INFO 6150 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-04-23 20:55:11.894  INFO 6150 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-23 20:55:11.895  INFO 6150 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1694 ms
+2021-04-23 20:55:12.526  INFO 6150 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-23 20:55:12.963  INFO 6150 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-04-23 20:55:12.976  INFO 6150 --- [main] c.m.assignment5.Assignment5Application   : Started Assignment5Application in 23.719 seconds (JVM running for 30.184)
+2021-04-23 21:02:11.662  INFO 6150 --- [RMI TCP Connection(18)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-04-23 21:02:11.739  INFO 6150 --- [RMI TCP Connection(18)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-04-23 21:02:50.666  WARN 6222 --- [main] o.s.boot.StartupInfoLogger               : InetAddress.getLocalHost().getHostName() took 5006 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).
+2021-04-23 21:02:55.676  INFO 6222 --- [main] c.m.assignment6.Assignment5Application   : Starting Assignment5Application using Java 1.8.0_281 on Matthews-MacBook-Air.local with PID 6222 (/Users/matthewrhoads/git/assignment6/target/classes started by matthewrhoads in /Users/matthewrhoads/git/assignment6)
+2021-04-23 21:02:55.678  INFO 6222 --- [main] c.m.assignment6.Assignment5Application   : No active profile set, falling back to default profiles: default
+2021-04-23 21:02:56.659  INFO 6222 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-04-23 21:02:56.684  INFO 6222 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-23 21:02:56.684  INFO 6222 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-04-23 21:02:56.757  INFO 6222 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-23 21:02:56.758  INFO 6222 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1031 ms
+2021-04-23 21:02:56.986  INFO 6222 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-23 21:02:57.234  INFO 6222 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-04-23 21:02:57.247  INFO 6222 --- [main] c.m.assignment6.Assignment5Application   : Started Assignment5Application in 22.066 seconds (JVM running for 27.774)
+2021-04-23 21:05:45.225  INFO 6222 --- [RMI TCP Connection(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-04-23 21:05:45.262  INFO 6222 --- [RMI TCP Connection(11)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-04-23 22:28:17.470  WARN 6644 --- [main] o.s.boot.StartupInfoLogger               : InetAddress.getLocalHost().getHostName() took 5006 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).
+2021-04-23 22:28:22.485  INFO 6644 --- [main] c.m.assignment6.Assignment6Application   : Starting Assignment6Application using Java 1.8.0_281 on Matthews-MacBook-Air.local with PID 6644 (/Users/matthewrhoads/git/assignment6/target/classes started by matthewrhoads in /Users/matthewrhoads/git/assignment6)
+2021-04-23 22:28:22.486  INFO 6644 --- [main] c.m.assignment6.Assignment6Application   : No active profile set, falling back to default profiles: default
+2021-04-23 22:28:23.982  INFO 6644 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-04-23 22:28:24.004  INFO 6644 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-23 22:28:24.004  INFO 6644 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-04-23 22:28:24.107  INFO 6644 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-23 22:28:24.108  INFO 6644 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1518 ms
+2021-04-23 22:28:24.353  INFO 6644 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-23 22:28:24.696  INFO 6644 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-04-23 22:28:24.707  INFO 6644 --- [main] c.m.assignment6.Assignment6Application   : Started Assignment6Application in 23.032 seconds (JVM running for 29.435)
+2021-04-23 22:28:36.141  INFO 6644 --- [RMI TCP Connection(4)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-04-23 22:28:36.219  INFO 6644 --- [RMI TCP Connection(4)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

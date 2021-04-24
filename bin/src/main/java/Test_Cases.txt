@@ -1,0 +1,56 @@
+-------Test cases---------
+==========================
+POST 
+"/CDOfferings"
+{
+	"interestRate": 0.025,
+	"term": 5
+}
+==========================
+GET
+URL: "/CDOfferings"
+==========================
+POST
+"/accountHolders"
+{
+	"firstName": "Sadiq",
+	"middleName": "",
+	"lastName": "Manji",
+	"ssn": "123456789"
+}
+==========================
+GET
+"/accountHolders"
+==========================
+GET
+"/accountHolders/{ID}"
+==========================
+Post 
+"/accountHolders/{id}/checkingAccounts"
+{
+	"balance": 1000
+}
+==========================
+Get
+"/accountHolders/{id}/checkingAccounts"
+==========================
+Post 
+"/accountHolders/{id}/savingsAccounts"
+{
+	"balance": 1000
+}
+==========================
+Get
+"/accountHolders/{id}/savingsAccounts"
+==========================
+Post 
+"/accountHolders/{id}/cdAccounts"
+{
+	"balance": 10000,
+	"cdOffering": {
+		“id”: 1
+	}
+}
+==========================
+Get
+"/accountHolders/{id}/cdAccounts"
