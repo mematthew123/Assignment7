@@ -1,25 +1,43 @@
 package com.meritamerica.assignment6.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
-//@Entity
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CDOffering {
+//	Static Variable
 	private static int nextID = 1;
+//	Instance Variables
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Positive(message = "interestRate must be greater than 0.")
-	@Max(value = 1, message = "interestRate must be less than 1.")
 	private double interestRate;
-	@NotBlank(message = "Interest Rate can't be below zero or above one")
-	@Min(value = 1, message = "term must be greater than 1.")
 	private int term;
 
+// 	Default Constructor
 	public CDOffering() {
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cdOffering")
+	@JsonIgnore
+	private List<CDAccount> cdAccounts;
+
+	public List<CDAccount> getCdAccounts() {
+		return cdAccounts;
+	}
+
+	public void setCdAccounts(List<CDAccount> cdAccounts) {
+		this.cdAccounts = cdAccounts;
 	}
 
 	/**
@@ -28,26 +46,19 @@ public class CDOffering {
 	 * @param term
 	 * @param interestRate
 	 */
-	public CDOffering(double interestRate, int term) {
+	public CDOffering(int term, double interestRate) {
 		this.id = nextID++;
-		this.interestRate = interestRate;
 		this.term = term;
+		this.interestRate = interestRate;
 	}
 
+	// Getters and Setters
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public double getInterestRate() {
-		return interestRate;
-	}
-
-	public void setInterestRate(double interestRate) {
-		this.interestRate = interestRate;
 	}
 
 	public int getTerm() {
@@ -58,8 +69,16 @@ public class CDOffering {
 		this.term = term;
 	}
 
-	public String writeToString() {
-		String newString = this.interestRate + "," + this.term;
-		return newString;
+	public double getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
+	}
+
+	@Override
+	public String toString() {
+		return "CDOfferings [id=" + id + ", term=" + term + ", interestRate=" + interestRate + "]";
 	}
 }

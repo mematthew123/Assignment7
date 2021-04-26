@@ -7,22 +7,15 @@ import javax.persistence.Id;
 
 @Entity
 public class CheckingAccount extends BankAccount {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+//	Default constructor	
 	public CheckingAccount() {
 	}
 
+//	Parameterized constructor		
 	public CheckingAccount(double balance) {
 		super(balance);
 	}
