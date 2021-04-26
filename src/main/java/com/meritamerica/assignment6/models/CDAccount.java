@@ -1,5 +1,7 @@
 package com.meritamerica.assignment6.models;
 
+//@Entity
+
 public class CDAccount extends BankAccount {
 //	Instance variables
 	private CDOffering cdOffering;

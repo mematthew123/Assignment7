@@ -2,6 +2,12 @@ package com.meritamerica.assignment6.models;
 
 import java.time.LocalDate;
 
+import javax.persistence.MappedSuperclass;
+
+
+
+
+@MappedSuperclass
 public class BankAccount {
 //	Account Number Generator
 	private static long nextAccountNumber = 1;

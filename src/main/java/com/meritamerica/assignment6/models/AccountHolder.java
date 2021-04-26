@@ -4,12 +4,27 @@ import java.util.*;
 
 import javax.validation.constraints.NotBlank;
 
+//import org.hibernate.annotations.Entity;
+
 import com.meritamerica.assignment6.Exceptions.ExceedsCombinedBalanceLimitException;
 
+import javax.annotation.*;
+import javax.persistence.*;
+
+import javax.persistence.Id;
+
+
+@Entity
+//@Table (name = "Bank Customers")
 public class AccountHolder {
 // 	Constants and static variables
 	public static final long BALANCE_LIMIT = 250000;
 	private static int nextID = 1;
+
+	
+	
+	
+	@Id
 
 //	Instance Variables	
 	private int id;
@@ -20,8 +35,11 @@ public class AccountHolder {
 	private String lastName;
 	@NotBlank(message = "SSN cannot be blank")
 	private String ssn;
+	@OneToMany
 	private List<CheckingAccount> checkingAccounts;
+	
 	private List<SavingsAccount> savingsAccounts;
+	
 	private List<CDAccount> cdAccounts;
 	private double combinedBalance;
 

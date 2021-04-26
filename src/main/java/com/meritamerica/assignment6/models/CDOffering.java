@@ -1,10 +1,14 @@
 package com.meritamerica.assignment6.models;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
+
+
+//@Entity
 public class CDOffering {
 	private static int nextID = 1;
 	private int id;
