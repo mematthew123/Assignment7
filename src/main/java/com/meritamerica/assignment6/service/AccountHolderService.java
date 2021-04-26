@@ -2,7 +2,7 @@ package com.meritamerica.assignment6.service;
 
 import java.util.List;
 
-import com.meritamerica.assignment6.exceptions.InvalidArgumentException;
+import com.meritamerica.assignment6.Exceptions.InvalidArgumentException;
 import com.meritamerica.assignment6.models.AccountHolder;
 import com.meritamerica.assignment6.models.AccountHoldersContactDetails;
 import com.meritamerica.assignment6.models.CDAccount;

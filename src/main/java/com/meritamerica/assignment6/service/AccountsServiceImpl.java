@@ -3,9 +3,9 @@ package com.meritamerica.assignment6.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.meritamerica.assignment6.exceptions.ExceedsCombinedBalanceLimitException;
-import com.meritamerica.assignment6.exceptions.InvalidArgumentException;
-import com.meritamerica.assignment6.exceptions.NoSuchAccountException;
+import com.meritamerica.assignment6.Exceptions.ExceedsCombinedBalanceLimitException;
+import com.meritamerica.assignment6.Exceptions.InvalidArgumentException;
+import com.meritamerica.assignment6.Exceptions.NoSuchAccountException;
 import com.meritamerica.assignment6.models.AccountHolder;
 import com.meritamerica.assignment6.models.CDAccount;
 import com.meritamerica.assignment6.models.CDOffering;

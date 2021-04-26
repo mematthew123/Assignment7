@@ -1,8 +1,8 @@
 package com.meritamerica.assignment6.service;
 
-import com.meritamerica.assignment6.exceptions.ExceedsCombinedBalanceLimitException;
-import com.meritamerica.assignment6.exceptions.InvalidArgumentException;
-import com.meritamerica.assignment6.exceptions.NoSuchAccountException;
+import com.meritamerica.assignment6.Exceptions.ExceedsCombinedBalanceLimitException;
+import com.meritamerica.assignment6.Exceptions.InvalidArgumentException;
+import com.meritamerica.assignment6.Exceptions.NoSuchAccountException;
 import com.meritamerica.assignment6.models.CDAccount;
 import com.meritamerica.assignment6.models.CheckingAccount;
 import com.meritamerica.assignment6.models.SavingsAccount;

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.meritamerica.assignment6.exceptions.InvalidArgumentException;
+import com.meritamerica.assignment6.Exceptions.InvalidArgumentException;
 import com.meritamerica.assignment6.models.CDOffering;
 import com.meritamerica.assignment6.repository.CDOfferingRepo;
 
