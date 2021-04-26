@@ -1,64 +1,70 @@
 package com.meritamerica.assignment6.models;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.validation.constraints.NotBlank;
-
-//import org.hibernate.annotations.Entity;
-
-import com.meritamerica.assignment6.Exceptions.ExceedsCombinedBalanceLimitException;
-
-import javax.annotation.*;
-import javax.persistence.*;
-
+import javax.persistence.CascadeType;
+//import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import com.meritamerica.assignment6.Exceptions.InvalidArgumentException;
 
 @Entity
-//@Table (name = "Bank Customers")
 public class AccountHolder {
 // 	Constants and static variables
 	public static final long BALANCE_LIMIT = 250000;
 	private static int nextID = 1;
 
-	
-	
-	
+//	Instance Variables
 	@Id
-
-//	Instance Variables	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotBlank(message = "First Name cannot be blank")
+	@NotNull(message = "First name cannot be blank")
 	private String firstName;
 	private String middleName;
 	@NotBlank(message = "Last Name cannot be blank")
+	@NotNull(message = "Last name cannot be blank")
 	private String lastName;
 	@NotBlank(message = "SSN cannot be blank")
+	@NotNull(message = "SSN cannot be blank")
 	private String ssn;
-	@OneToMany
-	private List<CheckingAccount> checkingAccounts;
-	
-	private List<SavingsAccount> savingsAccounts;
-	
-	private List<CDAccount> cdAccounts;
+
+	@OneToMany(mappedBy = "accountHolder")
+	private List<CheckingAccount> checkingAccounts = new ArrayList<>();
+	@OneToMany(mappedBy = "accountHolder")
+	private List<SavingsAccount> savingsAccounts = new ArrayList<>();
+	@OneToMany(mappedBy = "accountHolder")
+	private List<CDAccount> cdAccounts = new ArrayList<>();
+
 	private double combinedBalance;
 
-//	public AccountHolder() {
-//	} // Default Constructor
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "accountHolder")
+	private AccountHoldersContactDetails accountHoldersContactDetails;
 
-// Parameterized Constructor
+	public AccountHolder() {
+
+	}
+
+//	Parameterized Constructor
 	public AccountHolder(String firstName, String middleName, String lastName, String ssn) {
 		this.id = nextID++;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
 		this.ssn = ssn;
-		this.checkingAccounts = new ArrayList<CheckingAccount>();
-		this.savingsAccounts = new ArrayList<SavingsAccount>();
-		this.cdAccounts = new ArrayList<CDAccount>();
 	}
 
-//	Getters and Setters	
+//	Getters and Setters
 	public int getId() {
 		return id;
 	}
@@ -103,113 +109,24 @@ public class AccountHolder {
 		return checkingAccounts;
 	}
 
-	// Get checkinAccount by id method here
+	public void setCheckingAccounts(List<CheckingAccount> checkingAccounts) {
+		this.checkingAccounts = checkingAccounts;
+	}
 
 	public List<SavingsAccount> getSavingsAccounts() {
 		return savingsAccounts;
 	}
 
-	// Get savingsAccount by id method here
+	public void setSavingsAccounts(List<SavingsAccount> savingsAccounts) {
+		this.savingsAccounts = savingsAccounts;
+	}
 
 	public List<CDAccount> getCdAccounts() {
 		return cdAccounts;
 	}
 
-//	Add Account Methods	
-	/**
-	 * Add Checking Account Method
-	 * 
-	 * @param checkingAccount
-	 * @throws ExceedsCombinedBalanceLimitException
-	 */
-	public void addCheckingAccount(CheckingAccount checkingAccount) throws ExceedsCombinedBalanceLimitException {
-
-		if (getCombinedBalance() + checkingAccount.getBalance() >= BALANCE_LIMIT) {
-
-			throw new ExceedsCombinedBalanceLimitException(
-					"You have reached the maximum total balance across all accounts. Cannot create another account.");
-
-		} else {
-			this.checkingAccounts.add(checkingAccount);
-		}
-	}
-
-	public CheckingAccount addCheckingAccount(double openingBalance) throws ExceedsCombinedBalanceLimitException {
-		CheckingAccount newCheckingAccount = new CheckingAccount(openingBalance);
-
-		if (getCombinedBalance() + openingBalance >= BALANCE_LIMIT) {
-			throw new ExceedsCombinedBalanceLimitException(
-					"You have reached the maximum total balance across all accounts. Cannot create another.");
-		} else {
-			this.checkingAccounts.add(newCheckingAccount);
-			return newCheckingAccount;
-		}
-
-	}
-
-	/**
-	 * Add Saving Account Method
-	 * 
-	 * @param savingsAccount
-	 * @throws ExceedsCombinedBalanceLimitException
-	 */
-	public void addSavingsAccount(SavingsAccount savingsAccount) throws ExceedsCombinedBalanceLimitException {
-
-		if (getCombinedBalance() + savingsAccount.getBalance() >= BALANCE_LIMIT) {
-
-			throw new ExceedsCombinedBalanceLimitException(
-					"You have reached the maximum total balance across all accounts. Cannot create another account.");
-
-		} else {
-			this.savingsAccounts.add(savingsAccount);
-		}
-
-	}
-
-	public SavingsAccount addSavingsAccount(double openingBalance) throws ExceedsCombinedBalanceLimitException {
-		SavingsAccount newSavingsAccount = new SavingsAccount(openingBalance);
-		if (getCombinedBalance() + openingBalance >= BALANCE_LIMIT) {
-
-			throw new ExceedsCombinedBalanceLimitException(
-					"You have reached the maximum total balance across all accounts. Cannot create another.");
-
-		} else {
-			this.savingsAccounts.add(newSavingsAccount);
-			return newSavingsAccount;
-		}
-	}
-
-	/**
-	 * Add CD Account Method
-	 * 
-	 * @param cdAccount
-	 * @throws ExceedsCombinedBalanceLimitException
-	 */
-	public void addCdAccount(CDAccount cdAccount) throws ExceedsCombinedBalanceLimitException {
-
-		if (getCombinedBalance() + cdAccount.getBalance() >= BALANCE_LIMIT) {
-
-			throw new ExceedsCombinedBalanceLimitException(
-					"You have reached the maximum total balance across all accounts. Cannot create another account.");
-
-		} else {
-			this.cdAccounts.add(cdAccount);
-		}
-
-	}
-
-	public void addCdAccounts(double openingBalance, CDOffering offering) throws ExceedsCombinedBalanceLimitException {
-		CDAccount newCDAccount = new CDAccount(openingBalance, offering);
-
-		if (getCombinedBalance() + newCDAccount.getBalance() >= BALANCE_LIMIT) {
-
-			throw new ExceedsCombinedBalanceLimitException(
-					"You have reached the maximum total balance across all accounts. Cannot create another account.");
-
-		} else {
-			this.cdAccounts.add(newCDAccount);
-		}
-
+	public void setCdAccounts(List<CDAccount> cdAccounts) {
+		this.cdAccounts = cdAccounts;
 	}
 
 //	Get Number of Accounts
@@ -252,6 +169,14 @@ public class AccountHolder {
 		return total;
 	}
 
+	public AccountHoldersContactDetails getAccountHoldersContactDetails() {
+		return accountHoldersContactDetails;
+	}
+
+	public void setAccountHoldersContactDetails(AccountHoldersContactDetails accountHoldersContactDetails) {
+		this.accountHoldersContactDetails = accountHoldersContactDetails;
+	}
+
 //	Get All Accounts Combined Balance
 
 	public double getCombinedBalance() {
@@ -264,4 +189,5 @@ public class AccountHolder {
 	public String toString() {
 		return lastName + "," + middleName + "," + firstName + "," + ssn;
 	}
+
 }
