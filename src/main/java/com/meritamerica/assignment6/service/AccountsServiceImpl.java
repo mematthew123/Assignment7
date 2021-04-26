@@ -47,7 +47,7 @@ public class AccountsServiceImpl implements AccountsService {
 				throw new InvalidArgumentException("Balance cannt be negative");
 			}
 			CheckingAccount checkAcc = new CheckingAccount(checkingAccount.getBalance());
-			checkAcc.setAccountHolder(accountHolder);
+			checkAcc.getAccountHolder(accountHolder);
 			return checkingAccountRepo.save(checkAcc);
 		}
 		throw new NoSuchAccountException("No such account found");
