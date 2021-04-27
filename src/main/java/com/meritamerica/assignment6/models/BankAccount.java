@@ -29,7 +29,15 @@ public abstract class BankAccount {
 	
 	
 	
-//	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-YYYY");
+	public AccountHolder getAccountHolder() {
+		return accountHolder;
+	}
+
+	public void setAccountHolder(AccountHolder accountHolder) {
+		this.accountHolder = accountHolder;
+	}
+
+	//	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-YYYY");
 //	Default Constructor
 	public BankAccount() {
 	}

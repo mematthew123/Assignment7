@@ -16,7 +16,7 @@ import com.meritamerica.assignment6.repository.CDAccountRepo;
 import com.meritamerica.assignment6.repository.CDOfferingRepo;
 import com.meritamerica.assignment6.repository.CheckingAccountRepo;
 import com.meritamerica.assignment6.repository.SavingsAccountRepo;
-
+import com.meritamerica.assignment6.models.AccountHolder;
 @Service
 public class AccountsServiceImpl implements AccountsService {
 	@Autowired
@@ -47,7 +47,7 @@ public class AccountsServiceImpl implements AccountsService {
 				throw new InvalidArgumentException("Balance cannt be negative");
 			}
 			CheckingAccount checkAcc = new CheckingAccount(checkingAccount.getBalance());
-			checkAcc.getAccountHolder(accountHolder);
+			checkAcc.setAccountHolder(accountHolder);
 			return checkingAccountRepo.save(checkAcc);
 		}
 		throw new NoSuchAccountException("No such account found");
