@@ -19,6 +19,21 @@ import com.meritamerica.assignment7.models.AccountHolder;
 import com.meritamerica.assignment7.models.AccountHoldersContactDetails;
 import com.meritamerica.assignment7.service.AccountHolderService;
 
-public class UserController {
 
-}
+
+
+// Needs User Security Package and classes//
+
+
+
+//public class UserController {
+//
+////	@Autowired
+////	private UserService userservice; *need to create userclass to import
+////	
+////	@PostMapping("/authenticate/createuser")
+////	@ResponseStatus(HttpStatus.CREATED)
+////	Public User addUser (RequestBody User user) {
+////		return userService.addUser(user);
+////	}
+//
