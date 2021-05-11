@@ -27,7 +27,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.meritamerica.assignment7.security.util.JwtUtil;
 
 @RestController
 public class MainController {
@@ -35,8 +34,8 @@ public class MainController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager; 
-	@Autowired
-	private JwtUtil JwtTokenUtil;
+//	@Autowired
+//	private JwtUtil JwtTokenUtil;
 	
 	@Autowired
 	private MapReactiveUserDetailsService userDetailsService; // needs seCurity package created 
@@ -62,4 +61,4 @@ public class MainController {
 //
 //		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 //	}
-//}
+}
