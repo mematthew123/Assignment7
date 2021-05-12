@@ -9,8 +9,8 @@
 		<version>2.4.5</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.meritamerica.assignment6</groupId>
-	<artifactId>assignment6</artifactId>
+	<groupId>com.meritamerica.assignment7</groupId>
+	<artifactId>assignment7</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>assignment6</name>
 	<description>Demo project for Spring Boot</description>
@@ -46,6 +46,26 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		
+		 <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    
+    
+		
+		
+		
+		<dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-ldap</artifactId>
+    </dependency>
+		
+		
+		
+		
+		
 	</dependencies>
 
 	<build>

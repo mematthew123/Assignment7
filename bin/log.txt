@@ -60,3 +60,29 @@
 2021-04-26 21:49:43.557  WARN 19886 --- [http-nio-8080-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'text/plain;charset=UTF-8' not supported]
 2021-04-26 21:50:08.955  WARN 19886 --- [http-nio-8080-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries
  at [Source: (PushbackInputStream); line: 5, column: 2]]
+2021-05-08 21:23:03.360  WARN 35682 --- [main] o.s.boot.StartupInfoLogger               : InetAddress.getLocalHost().getHostName() took 5004 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).
+2021-05-08 21:23:08.373  INFO 35682 --- [main] c.m.assignment6.Assignment6Application   : Starting Assignment6Application using Java 1.8.0_281 on Matthews-MacBook-Air.local with PID 35682 (/Users/matthewrhoads/Desktop/Assignment7.git/Assignment7/target/classes started by matthewrhoads in /Users/matthewrhoads/Desktop/Assignment7.git/Assignment7)
+2021-05-08 21:23:08.375  INFO 35682 --- [main] c.m.assignment6.Assignment6Application   : No active profile set, falling back to default profiles: default
+2021-05-08 21:23:09.265  INFO 35682 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-08 21:23:09.382  INFO 35682 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 105 ms. Found 6 JPA repository interfaces.
+2021-05-08 21:23:10.231  INFO 35682 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-05-08 21:23:10.251  INFO 35682 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-05-08 21:23:10.252  INFO 35682 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-05-08 21:23:10.407  INFO 35682 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-05-08 21:23:10.408  INFO 35682 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1957 ms
+2021-05-08 21:23:10.481  INFO 35682 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-05-08 21:23:10.867  INFO 35682 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-05-08 21:23:10.878  INFO 35682 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:mydb'
+2021-05-08 21:23:11.049  INFO 35682 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-08 21:23:11.163  INFO 35682 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2021-05-08 21:23:11.411  INFO 35682 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-05-08 21:23:11.665  INFO 35682 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-05-08 21:23:12.943  INFO 35682 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-08 21:23:12.956  INFO 35682 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-08 21:23:13.645  WARN 35682 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-05-08 21:23:13.840  INFO 35682 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-08 21:23:14.242  INFO 35682 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-05-08 21:23:14.254  INFO 35682 --- [main] c.m.assignment6.Assignment6Application   : Started Assignment6Application in 26.585 seconds (JVM running for 32.982)
+2021-05-08 21:24:59.173  INFO 35682 --- [http-nio-8080-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-08 21:24:59.179  INFO 35682 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-05-08 21:24:59.183  INFO 35682 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
